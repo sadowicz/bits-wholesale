@@ -15,6 +15,8 @@
 #include <errno.h>
 
 void errExit(const char* msg);
+void usageExit(const char* programName, const char* msg);
+
 float strToRate(char* str);
 void strToPortAddr(char* str, char* addr, in_port_t* port);
 in_port_t strToPort(char* str);

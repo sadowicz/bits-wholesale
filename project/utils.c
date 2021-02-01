@@ -6,6 +6,12 @@ void errExit(const char* msg)
     exit(1);
 }
 
+void usageExit(const char* programName, const char* msg)
+{
+    fprintf(stderr, "USAGE: %s %s\n", programName, msg);
+    exit(1);
+}
+
 float strToRate(char* str)
 {
     char* endptr = 0;
@@ -14,7 +20,7 @@ float strToRate(char* str)
     float res = strtof(str, &endptr);
 
     if(errno || *endptr || res < 0.f)
-        errExit("Unable to convert string to rate (unnegative float)");
+        errExit("strToRate: Unable to convert string to rate (unnegative float)");
 
     return res;
 }
@@ -31,6 +37,10 @@ void strToPortAddr(char* str, char* addr, in_port_t* port)
     else
     {
         size_t addrLen = strlen(str) - strlen(portStart);
+
+        if(addrLen > ADDR_MAX_LEN - 1)
+            errExit("IP adress too long");
+
         memcpy(addr, str, addrLen);
         portStart++;    // set portStart after ':'
     }
@@ -46,7 +56,7 @@ in_port_t strToPort(char* str)
     long res = strtol(str, &endptr, 10);
 
     if(errno || *endptr || res < 0 || res > 65535)
-        errExit("Unable to  convert string to port number");
+        errExit("strToPort: Unable to  convert string to port number");
 
     return (in_port_t)res;
 }
@@ -59,7 +69,7 @@ unsigned long strToCapacity(char* str)
     unsigned long res = strtoul(str, &endptr, 10);
 
     if(errno || *endptr)
-        errExit("Unable to  convert string to storehouse capacity");
+        errExit("strToCapacity: Unable to  convert string to storehouse capacity");
 
     return res;
 }
