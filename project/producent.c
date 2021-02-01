@@ -7,6 +7,7 @@
 #include <netinet/in.h>
 
 #include "utils.h"
+#include "consts.h"
 
 void parseArgs(int argc, char** argv, float* prodRate, char* addr, in_port_t* port);
 

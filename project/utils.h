@@ -5,14 +5,13 @@
 #define _POSIX_C_SOURCE 200112L
 #define _GNU_SOURCE
 
-#define ADDR_MAX_LEN 16
-#define PORT_MAX_LEN 6
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <netinet/in.h>
 #include <errno.h>
+
+#include "consts.h"
 
 void errExit(const char* msg);
 void usageExit(const char* programName, const char* msg);
