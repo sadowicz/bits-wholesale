@@ -30,12 +30,15 @@ void parseArgs(int argc, char** argv, float* prodRate, char* addr, in_port_t* po
 {
     int opt;
 
-    while((opt = getopt(argc, argv, ":p:")) != -1)
+    while((opt = getopt(argc, argv, "-:p:")) != -1)
     {
         switch(opt)
         {
             case 'p':
                 *prodRate = strToRate(optarg);
+                break;
+            case 1:
+                strToPortAddr(argv[optind - 1], addr, port);
                 break;
             case ':':
                 errExit("parseArgs: Argument requires value");
@@ -46,6 +49,4 @@ void parseArgs(int argc, char** argv, float* prodRate, char* addr, in_port_t* po
             default: break;
         }
     }
-
-    strToPortAddr(argv[optind], addr, port);
 }
